@@ -128,7 +128,7 @@ for j in range(0,7) :
     ##랜덤 시각, 랜덤 거치소에 대해 데이터프레임 구성하기
     # random_datetime 60분 전까지 있는지 확인
 
-    time_columns = [random_datetime - pd.Timedelta(minutes=i*10) for i in range(0, 7)]
+    time_columns = [(random_datetime - pd.Timedelta(minutes=i*10)).strftime('%Y-%m-%d %H:%M') for i in range(0, 7)]
 
     
     ##time_columns의 값이 모두 열 이름에 포함되어 있다면 각각을 t, ..., t-60에 저장 
@@ -137,7 +137,6 @@ for j in range(0,7) :
         selected_row_1 = bike_data[bike_data['stationId'] == random_station]
         
         for time_column in time_columns :
-            time_column = time_column.strftime('%Y-%m-%d %H:%M')
             matching_column = bike_data.columns[bike_data.columns.str.contains(time_column) & bike_data.columns.str.contains('parkingBike')]
             
             
